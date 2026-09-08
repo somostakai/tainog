@@ -1,4 +1,8 @@
-name: Deploy no GitHub Pages
+name: Publicar no GitHub Pages
+
+# O Pages deste repositório publica a partir da branch gh-pages.
+# Este workflow espelha main em gh-pages a cada push, então basta
+# commitar em main que o site é republicado.
 
 on:
   push:
@@ -6,27 +10,19 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
+  group: publicar-pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  publicar:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
         with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          fetch-depth: 0
+
+      - name: Espelhar main na branch gh-pages
+        run: git push origin HEAD:refs/heads/gh-pages --force

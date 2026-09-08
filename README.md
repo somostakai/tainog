@@ -25,13 +25,26 @@ As imagens e vídeos que antes estavam embutidos em base64 dentro do HTML (13 MB
 um arquivo só) agora são arquivos separados: a página em si tem ~25 KB e a mídia
 carrega sob demanda.
 
-## Publicar no GitHub Pages
+## Publicação
 
-1. No repositório, abra **Settings → Pages**.
-2. Em **Source**, escolha **GitHub Actions**.
-3. Faça merge deste branch em `main`. O workflow `deploy.yml` publica o site a cada push.
+O site está no ar em **https://somostakai.github.io/tainog/**.
 
-O site fica em `https://somostakai.github.io/tainog/`.
+O GitHub Pages deste repositório publica a partir da branch `gh-pages`. O workflow
+`.github/workflows/deploy.yml` espelha `main` em `gh-pages` a cada push, então o
+fluxo normal é: commitar em `main` e esperar cerca de um minuto.
+
+Não mexa na `gh-pages` na mão — ela é sobrescrita a cada publicação.
+
+### Pendências de configuração no repositório
+
+Duas coisas precisam de acesso de administrador e não puderam ser feitas por API:
+
+- **Branch padrão**: hoje é `claude/jolly-hamilton-d3bo62`, porque foi a primeira
+  branch enviada ao repositório vazio. Troque para `main` em
+  *Settings → General → Default branch*.
+- **Fonte do Pages** (opcional): em *Settings → Pages* dá para trocar de
+  "Deploy from a branch: gh-pages" para "GitHub Actions". Se fizer isso, o
+  workflow acima precisa ser substituído pelo de deploy oficial do Pages.
 
 ### Domínio próprio
 
@@ -39,8 +52,8 @@ Para usar um domínio (ex.: `tainog.com.br`):
 
 1. Crie um arquivo `CNAME` na raiz com o domínio, uma linha só.
 2. Aponte o DNS do domínio para o GitHub Pages.
-3. Atualize as URLs em `sitemap.xml`, `robots.txt` e nas tags `canonical`/`og:url`
-   do `index.html`.
+3. Atualize as URLs em `sitemap.xml`, `robots.txt`, nos caminhos do `404.html` e
+   nas tags `canonical`/`og:url` do `index.html`.
 
 ## Rodar localmente
 
