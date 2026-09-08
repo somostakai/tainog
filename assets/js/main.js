@@ -162,6 +162,24 @@
     sections.forEach(function (section) { observer.observe(section); });
   }
 
+  /* ---------------------------------------------------- voltar ao topo */
+  var toTop = document.getElementById('to-top');
+
+  if (toTop) {
+    var showAfter = window.innerHeight * 0.8;
+
+    function updateToTop() {
+      toTop.classList.toggle('is-visible', window.scrollY > showAfter);
+    }
+
+    updateToTop();
+    window.addEventListener('scroll', updateToTop, { passive: true });
+
+    toTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    });
+  }
+
   /* ------------------------------------------------------- ano no rodapé */
   var year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
